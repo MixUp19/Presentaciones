@@ -1,0 +1,30 @@
+---
+import type { FerrisAsset } from '../data/slides';
+
+interface Props {
+  asset: FerrisAsset;
+  tilt: -1 | 0 | 1;
+  bubble?: string;
+}
+
+const { asset, tilt, bubble } = Astro.props;
+---
+
+{/*
+  Ferris como apoyo visual persistente. La pose y la inclinación se cambian
+  desde el script de navegación: sólo se actualizan dos atributos data-*.
+*/}
+<div class="ferris" data-ferris data-tilt={String(tilt)} aria-hidden="true">
+  {bubble && <p class="ferris__bubble" data-ferris-bubble>{bubble}</p>}
+  <div class="ferris__figure">
+    <img
+      src={`/ferris/${asset}.svg`}
+      alt=""
+      data-ferris-img
+      data-asset={asset}
+      width="1200"
+      height="800"
+      decoding="async"
+    />
+  </div>
+</div>

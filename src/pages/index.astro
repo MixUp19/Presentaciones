@@ -1,0 +1,255 @@
+---
+import { SLIDES, SECTIONS } from '../data/slides';
+import Blocks from '../components/Blocks.astro';
+import SideNav from '../components/SideNav.astro';
+import Ferris from '../components/Ferris.astro';
+import '../styles/global.css';
+
+const first = SLIDES[0];
+
+let n = 0;
+const slides = SLIDES.map((slide) => ({ ...slide, n: n++ }));
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adaptación — resumen del capítulo</title>
+    <meta
+      name="description"
+      content="Presentación sobre el capítulo Adaptación: velocidad de iteración, plataforma, despliegue y arquitectura."
+    />
+    <link rel="icon" type="image/svg+xml" href="/ferris/flat-orig.svg" />
+  </head>
+
+  <body data-present="false" data-nav="closed">
+    <div class="progress"><div class="progress__bar" data-progress></div></div>
+
+    <SideNav />
+
+    <p class="counter"><b data-counter-current>1</b> / {SLIDES.length}</p>
+    <p class="hint">← → para avanzar · F pantalla completa · M índice</p>
+
+    {slides.map((slide) => (
+      <section
+        class:list={[
+          'slide',
+          slide.id === 'portada' && 'slide--cover',
+          slide.id === 'indice' && 'slide--wide',
+        ]}
+        id={slide.id}
+        data-slide={slide.n}
+        data-active={String(slide.n === 0)}
+        data-ferris-asset={slide.ferris}
+        data-ferris-tilt={String(slide.tilt ?? 0)}
+        data-ferris-bubble={slide.bubble ?? ''}
+        aria-hidden={slide.n !== 0 ? 'true' : 'false'}
+        aria-label={slide.title}
+      >
+        <div class="slide__inner">
+          {slide.kicker && <p class="slide__kicker">{slide.kicker}</p>}
+          <h1 class="slide__title">{slide.title}</h1>
+          {slide.id === 'portada' && <div class="cover-rule" />}
+
+          {
+            slide.id === 'indice' ? (
+              <div class="toc">
+                {SECTIONS.map((section) => (
+                  <div class="toc__group">
+                    <h3>{section.name}</h3>
+                    <ol>
+                      {section.slides.map((s) => {
+                        const index = SLIDES.findIndex((x) => x.id === s.id);
+                        return (
+                          <li>
+                            <button type="button" data-goto={index}>
+                              <span class="toc__num">{String(index).padStart(2, '0')}</span>
+                              <span class="toc__label">{s.title}</span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <Blocks blocks={slide.blocks} />
+            )
+          }
+        </div>
+      </section>
+    ))}
+
+    <Ferris asset={first.ferris} tilt={first.tilt ?? 0} bubble={first.bubble} />
+
+    <script>
+      // ---------------------------------------------------------- navegación
+      const slides = Array.from(document.querySelectorAll<HTMLElement>('[data-slide]'));
+      const total = slides.length;
+
+      const progress = document.querySelector<HTMLElement>('[data-progress]')!;
+      const counterEl = document.querySelector<HTMLElement>('[data-counter-current]')!;
+      const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
+      const ferrisRoot = document.querySelector<HTMLElement>('[data-ferris]')!;
+      const ferrisImg = document.querySelector<HTMLImageElement>('[data-ferris-img]')!;
+
+      let current = 0;
+
+      function go(index: number, { push = true } = {}) {
+        const next = Math.min(Math.max(index, 0), total - 1);
+        if (next === current && slides[next].dataset.active === 'true') return;
+        current = next;
+
+        slides.forEach((slide, i) => {
+          const active = i === next;
+          slide.dataset.active = String(active);
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+
+        // El índice lateral marca la slide activa.
+        navLinks.forEach((link, i) => {
+          if (i === next) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+
+        progress.style.width = `${((next + 1) / total) * 100}%`;
+        counterEl.textContent = String(next + 1);
+
+        // ------------------------------------------------- Ferris
+        const slide = slides[next];
+        const asset = slide.dataset.ferrisAsset;
+        if (asset && ferrisImg.dataset.asset !== asset) {
+          ferrisImg.src = `/ferris/${asset}.svg`;
+          ferrisImg.dataset.asset = asset;
+          // Reinicia la animación de entrada ("salto").
+          ferrisImg.style.animation = 'none';
+          void ferrisImg.offsetWidth;
+          ferrisImg.style.animation = '';
+        }
+        ferrisRoot.dataset.tilt = slide.dataset.ferrisTilt ?? '0';
+
+        const bubble = slide.dataset.ferrisBubble ?? '';
+        const existing = ferrisRoot.querySelector('.ferris__bubble');
+        if (bubble) {
+          if (existing) {
+            existing.textContent = bubble;
+          } else {
+            const p = document.createElement('p');
+            p.className = 'ferris__bubble';
+            p.textContent = bubble;
+            ferrisRoot.prepend(p);
+          }
+        } else if (existing) {
+          existing.remove();
+        }
+
+        document.title = `${String(next + 1).padStart(2, '0')} · ${slide.querySelector('.slide__title')?.textContent ?? ''}`;
+
+        if (push) history.replaceState(null, '', `#${slide.id}`);
+        closeNav();
+      }
+
+      // ------------------------------------------------------------ teclado
+      addEventListener('keydown', (event) => {
+        const key = event.key;
+        if (key === 'ArrowRight' || key === 'ArrowDown' || key === 'PageDown' || key === ' ') {
+          event.preventDefault();
+          go(current + 1);
+        } else if (key === 'ArrowLeft' || key === 'ArrowUp' || key === 'PageUp') {
+          event.preventDefault();
+          go(current - 1);
+        } else if (key === 'Home') {
+          event.preventDefault();
+          go(0);
+        } else if (key === 'End') {
+          event.preventDefault();
+          go(total - 1);
+        } else if (key === 'f' || key === 'F') {
+          togglePresent();
+        } else if (key === 'm' || key === 'M') {
+          toggleNav();
+        }
+      });
+
+      // -------------------------------------------------------------- click
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+
+        const goto = target.closest<HTMLElement>('[data-goto]');
+        if (goto?.dataset.goto) {
+          go(Number(goto.dataset.goto));
+          return;
+        }
+
+        const link = target.closest<HTMLAnchorElement>('[data-nav-link]');
+        if (link?.dataset.navLink) {
+          event.preventDefault();
+          go(Number(link.dataset.navLink));
+          return;
+        }
+
+        if (target.closest('[data-nav-toggle]')) {
+          toggleNav();
+          return;
+        }
+
+        // Clic en la mitad derecha de la pantalla avanza.
+        if (!target.closest('.sidenav, .ferris, button, a')) {
+          if (event.clientX > innerWidth * 0.5) go(current + 1);
+          else go(current - 1);
+        }
+      });
+
+      // -------------------------------------------------------------- swipe
+      let startX = 0;
+      let startY = 0;
+      addEventListener('touchstart', (e) => {
+        startX = e.changedTouches[0].clientX;
+        startY = e.changedTouches[0].clientY;
+      }, { passive: true });
+
+      addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy)) return;
+        go(dx < 0 ? current + 1 : current - 1);
+      }, { passive: true });
+
+      // ------------------------------------------------------ modo pantalla
+      function togglePresent() {
+        const on = document.body.dataset.present === 'true';
+        document.body.dataset.present = String(!on);
+        if (!on && document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else if (on && document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+
+      function toggleNav() {
+        const open = document.body.dataset.nav === 'open';
+        document.body.dataset.nav = open ? 'closed' : 'open';
+      }
+
+      function closeNav() {
+        if (document.body.dataset.nav === 'open') document.body.dataset.nav = 'closed';
+      }
+
+      // ------------------------------------------------------------- arranque
+      const fromHash = slides.findIndex((s) => `#${s.id}` === location.hash);
+      go(fromHash >= 0 ? fromHash : 0, { push: false });
+
+      addEventListener('hashchange', () => {
+        const index = slides.findIndex((s) => `#${s.id}` === location.hash);
+        if (index >= 0) go(index, { push: false });
+      });
+
+      // Pista de teclado: se muestra 3 s al cargar y luego se oculta.
+      document.body.dataset.hint = 'true';
+      setTimeout(() => (document.body.dataset.hint = 'false'), 3200);
+    </script>
+  </body>
+</html>

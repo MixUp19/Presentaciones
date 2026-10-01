@@ -1,0 +1,40 @@
+---
+import { SECTIONS } from '../data/slides';
+
+// El estado activo (aria-current) lo aplica el script de navegación.
+let counter = 0;
+---
+
+<button class="sidenav__toggle" type="button" aria-label="Abrir índice" aria-expanded="false" data-nav-toggle>
+  <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+    <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  </svg>
+</button>
+
+<nav class="sidenav" aria-label="Índice de la presentación" data-sidenav>
+  <div class="sidenav__brand">
+    <img src="/ferris/flat-orig.svg" alt="" />
+    <span>Adaptación</span>
+  </div>
+
+  {
+    SECTIONS.map((section) => (
+      <>
+        <p class="sidenav__section">{section.name}</p>
+        {section.slides.map((slide) => {
+          counter += 1;
+          const index = counter;
+          return (
+            <a href={`#${slide.id}`} data-nav-link={index - 1}>
+              {slide.title}
+            </a>
+          );
+        })}
+      </>
+    ))
+  }
+</nav>
+
+<style>
+  [data-nav-link][aria-current="true"] { font-weight: 600; }
+</style>

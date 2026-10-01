@@ -1,0 +1,87 @@
+---
+import type { SlideBlock } from '../data/slides';
+
+interface Props {
+  blocks: SlideBlock[];
+}
+
+const { blocks } = Astro.props;
+---
+
+<div class="blocks">
+  {
+    blocks.map((block) => {
+      switch (block.kind) {
+        case 'text':
+          return <p>{block.value}</p>;
+
+        case 'list':
+          return (
+            <ul>
+              {block.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          );
+
+        case 'quote':
+          return (
+            <blockquote class="quote">
+              {block.value}
+              {block.author && <cite>{block.author}</cite>}
+            </blockquote>
+          );
+
+        case 'highlight':
+          return (
+            <div class="highlight">
+              <b>{block.label}</b>
+              <span>{block.value}</span>
+            </div>
+          );
+
+        case 'contrast':
+          return (
+            <div class="contrast">
+              <div class="bad">
+                <b>No</b>
+                {block.bad}
+              </div>
+              <div class="good">
+                <b>Sí</b>
+                {block.good}
+              </div>
+            </div>
+          );
+
+        case 'steps':
+          return (
+            <ol class="steps">
+              {block.items.map((item, i) => (
+                <li>
+                  <span class="sr-only">Paso {i + 1}: </span>{item}
+                </li>
+              ))}
+            </ol>
+          );
+
+        case 'note':
+          return <p class="note">{block.value}</p>;
+      }
+    })
+  }
+</div>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

@@ -1,0 +1,43 @@
+El capitulo se llama adaptación, nos da una breve interrupción con frases dichas en el mundillo de silicon valley con frases como, disrrumpe el mercado o serás disrrumpido o muevete rápido, rompe cosas.
+
+nos habla sobre como los competidores salen de la nada y debes de estar preparado para ellos aunque no te los esperes, por eso debes poner tu MVP afuera desde ayer.
+
+Después nos hace una breve reflexión sobre que no todo el software debe de crecer a medida que se crea, pone como ejemplo el código para aviones y vuelos espaciales, pero nos introduce el caso de spirit rover que tuvo que desplegar un hotfix en marte y curiosity que descargo el programa de vuelo y aterrizaje para cargar el de operaciones terrestres ya que no hay actualizaciones en vuelo de RAM.
+
+Para conseguir esta velocidad hace falta entrar en el ciclo Deming/Sheward (plan, do, check, act), y para las empresas grandes se debe mantener el contacto con cada una de las partes, hacer la comunicación lo más efectiva posible para evitar.
+
+Esto te debe ayudar a decidir las cosas más rápido y por ende tener mejor tiempo de respuesta a tus competidores y acelerar la iteración constantemente eventualmente hará que sean la competencia la que se adapte a ti.
+
+¡Pero cuidado!, no solo debes de acelerar el desarrollo, ya que al hacerlo estarías cayendo en lo denominado trashing que consta de que tu nueva propuesta sale tan rápido que no alcanzaste a recopilar feedback que realmente te sea de ayuda y tu nuevo códgo queda mal o no cumple con el feedback que los usuarios te dieron.
+
+La plataforma donde corres tu software es igual de importante como tu software mismo, antes cada compañia tenía su equipo de desarrollo y su equipo de operaciones encargados de montar toda la infraestructura, hoy con las bondades de la virtualización y el cloud, la creación de plataformas se volvió más programable y fácil de hacer. 
+
+También tu equipo de plataforma no debe de ser quien implemente todo lo que tú aplicación necesita, debe de crear la base sobre la cual tu debes de crear la aplicación:
+
+Ejemplo:
+Tu equipo debe colocar tracking en la aplicación, mediante logs en archivos y base de datos, la responsabilidad del equipo de plataforma es brindarte las API para crear las tablas, realizar consultas y modificaciones en la BD, así como la API para poder guardar los archivos, pero es tu responsabilidad colocar el tracking en las zonas de tu programa que son relevantes de llevar seguimiento.
+
+Lección recomendada del capitulo "La falacia del equipo DevOps"
+Nos habla de como el "DevOps" moderno es una mentira, ya sea solo un nombre enaltecido del equipo de plataforma o una especie de pegamento que rompe con la idea primordial del DevOps
+
+Seguido con lo que menciona el capitulo sobre el trabajo de plataforma y desarrollo estando juntos codo a codo es que debería hacer el camino de desplegar mucho más sencillo, algo tan rutinario como cortarse el cabello, algo que haces unas 6 7 veces al año pero no es algo relevante, pone de ejemplo el caso de estudio del capitulo 12 donde los ingenieros de la nasa sufrían porque el deploy no podía salir mal entonces lo revisaban, se tardaban en revisarlo y como ahora iban más atrasado con menos razón debía salir mal y volvían a revisarlo.
+
+El despliegue debe de ser algo sin esfuerzo, automatizado y estandarizado, punto.
+
+Un ejemplo es el despliegue de "Blue/green" deployment el cual consiste en tener tus máquinas en dos pool, uno con el código de producción y otro con el código a implementar, las maquinas con la nueva versión van replicando la información y si se ve bien, se van pasando estas maquinas para producción a atender las peticiones reales.
+
+También algo a considerar es lo que vale la pena mantener, y el capitulo nos sugiere el service extinction dejar morir lo que no sirve "a morir a morir que se seque y a morir" diría el villano de loraz, pero en este punto nos conviene, un ejemplo es que tienes un servicio de páginas personalizadas, redes sociales, ventas  etc, muestras una página personalizada por usuario o una página general de las recomendaciones, supon que solo una tiene exito, la personalizada y el trabajo crece, la mejor opción es dejar morir lo que no está dando dinero si no, preguntenle a Google y su infinidad de productos muertos, literalmente dejaron morir el "futuro de los videojuegos" eso es porque si algo no deja es mejor matarlo y centrar los recursos que lo tenían en terapia intensiva en otra cosa más readituable.
+
+Así como es bueno tener solo los servicios que son autosostenibles, que los equipos sean autosustentables es lo ideal, el concepto de un equipo de no más de dos pizzas grandes o como yo lo voy a llamar el equipo de no más de una holla mediana de pozole, estamos en méxico aquí si hay gastronomía, que vendrían siendo más o menos 8 personas, esto hace que la comunicación en el equipo sea rápida, que no estén esperando a que otras personas dependan de la respuesta de otra persona, si no que se convierta en un equipo multidisciplinario que pueda rascarse su propia espalda.
+
+ahora que nuestro equipo es pequeño y rápido comunicandose es necesario hacerlo muy eficiente ¿verdad? ¿verdad? pues no, la alta eficiencia nos ata a la infraestructura y servicios que consumimos actualmente, piensalo así, un script en bash te permite levantar una maquina virtual en cualquier servidor que tenga VMware por ejemplo, o incluso lo puedes adaptar para que detecte que hay y con eso virtualizar, deberás de configurar tú la máquina y otras cosas pero te permite ser flexible en cuanto a que recursos tienes en la maquina, ahora imagina que tienes una action de github actions que despliega tu aplicación en kubernetes, hosteado en AWS cada vez que haces un commit en GitHub ¡Estás atado!, lo que ganaste en eficiencia lo perdiste en flexibilidad, si mañana un montón de cangrejos deciden cortar todos los cables de internet de AWS estás frito.
+
+Pero no podemos cambiar la organización sola, debe de cambiar con ella la arquitectura.
+
+actualmente una de las formas más utilizadas para separar la responsabilidad de las aplicaciones es por capas, la capa del usuario, controlador, dominio, servicios tecnicos etc. Esto en muchas ocaciones provoca que los componentes crezcan horizontalmente quedando acoplados unos con otros.
+
+El autor nos habla de encerrar cada modulo o funcionalidad del software de forma vertical, cada uno como si fuera un microservicio pero no lo es, de esta forma es más fácil expandir la funcionalidad del software.
+
+otro factor del que nos habla el autor es el contexto implicito en tu codigo, no es lo mismo una variable Item a otra llamada ItemIdWebPolicies, el primero te dejan patinando.
+
+También debes de dejar paredes lisas, listas para expandir, debes separar tus componentes
