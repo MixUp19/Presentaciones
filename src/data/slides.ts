@@ -55,7 +55,7 @@ export const SECTIONS: Section[] = [
         kicker: 'Resumen del capítulo',
         ferris: 'flat-gesture',
         blocks: [
-          { kind: 'text', value: 'Cómo la velocidad de iteración se convierte en la ventaja competitiva que decide quién se adapta a quién.' },
+          { kind: 'text', value: 'La habilidad que te permite sostenerte en el tiempo' },
         ],
       },
       {
@@ -73,7 +73,7 @@ export const SECTIONS: Section[] = [
         blocks: [
           { kind: 'quote', value: 'Disrumpir el mercado o ser disrupto.' },
           { kind: 'quote', value: 'Muévete rápido, rompe cosas.' },
-          { kind: 'note', value: 'La briskness del Silicon Valley tiene una regla: la que rompe el mercado es la que sobrevive.' },
+          { kind: 'note', value: 'La velocidad del Silicon Valley tiene una regla: la que rompe el mercado es la que sobrevive.' },
         ],
       },
     ],
@@ -89,16 +89,18 @@ export const SECTIONS: Section[] = [
         blocks: [
           { kind: 'text', value: 'Los competidores salen de la nada. No te los esperes, prepárate para ellos.' },
           { kind: 'highlight', label: 'Regla práctica', value: 'Pon tu MVP afuera desde ayer.' },
+          { kind: 'text', value:'Pero ten cuidado, correr puede significar tropezar'}
         ],
       },
       {
         id: 'no-crecer',
         title: 'No todo debe crecer a la vez',
+        kicker: 'Crecer de más es tan peligroso como no crecer.',
         ferris: 'flat-orig',
         tilt: -1,
         blocks: [
           { kind: 'text', value: 'El software de aviones y de vuelos espaciales no escala igual: cada pieza tiene su propio ritmo.' },
-          { kind: 'note', value: 'Crecer de más es tan peligroso como no crecer.' },
+          { kind: 'note', value: 'Pero incluso en este mundo existen excepciones.' },
         ],
       },
       {
@@ -119,6 +121,7 @@ export const SECTIONS: Section[] = [
         title: 'Curiosity: sin actualizaciones en vuelo',
         ferris: 'cuddlyferris',
         tilt: -1,
+        bubble: 'Quizás ahora sea más fácil conseguir RAM en el espacio que aquí.',
         blocks: [
           { kind: 'text', value: 'Descargó el programa de vuelo y aterrizaje para cargar el de operaciones terrestres.' },
           { kind: 'list', items: [
@@ -166,7 +169,7 @@ export const SECTIONS: Section[] = [
         kicker: 'Acelerar sin leer',
         ferris: 'cuddlyferris',
         tilt: -1,
-        bubble: 'Esa versión salió antes de leer el feedback. Ya valió.',
+        bubble: 'Si vas muy rápido en una curva te vas al barranco.',
         blocks: [
           { kind: 'text', value: 'No solo debes acelerar el desarrollo.' },
           { kind: 'list', items: [
@@ -199,7 +202,7 @@ export const SECTIONS: Section[] = [
         title: 'La base es del equipo de plataforma',
         ferris: 'flat-orig',
         tilt: -1,
-        bubble: 'Te dan las llaves. La casa la armas tú.',
+        bubble: 'Te dan los ladrillos y aplanan el terreno. Tú haz la casa',
         blocks: [
           { kind: 'text', value: 'Tu equipo de plataforma no debe implementar todo lo que tu aplicación necesita: debe crear la base sobre la cual tú construyes.' },
         ],
@@ -211,7 +214,7 @@ export const SECTIONS: Section[] = [
         tilt: 1,
         blocks: [
           { kind: 'text', value: 'Tu equipo debe colocar tracking en la aplicación, mediante logs en archivos y base de datos.' },
-          { kind: 'contrast', bad: 'Plataforma: APIs para crear tablas, consultar y modificar la BD, y para guardar archivos.', good: 'Tu equipo: colocar el tracking en las zonas relevantes de tu programa.' },
+          { kind: 'contrast', bad: 'Que el equipo de plataforma integre todo de acuerdo a tu app.', good: 'Que el equipo de plataforma te de lo necesario para persistir los logs, tú solo consumes.' },
         ],
       },
       {
@@ -286,10 +289,9 @@ export const SECTIONS: Section[] = [
         kicker: 'Dejar morir lo que no sirve',
         ferris: 'cuddlyferris',
         tilt: -1,
-        bubble: 'A morir a morir, que se seque. A dying.',
+        bubble: 'A morir a morir, que se seque y a morir.',
         blocks: [
-          { kind: 'quote', value: 'A morir a morir, que se seque.', author: 'El villano de Loraz' },
-          { kind: 'text', value: 'Aquí sí nos conviene: preguntémosle a Google y su infinidad de productos muertos. Dejaron morir literalmente el "futuro de los videojuegos".' },
+          { kind: 'text', value: 'Aquí preguntémosle a Google y su infinidad de productos muertos. Dejaron morir literalmente el "futuro de los videojuegos".' },
           { kind: 'highlight', label: 'Decisión', value: 'Si algo no deja, es mejor matarlo y centrar los recursos que tenía en terapia intensiva en algo más rentable.' },
         ],
       },
@@ -305,11 +307,11 @@ export const SECTIONS: Section[] = [
         tilt: 1,
         blocks: [
           { kind: 'text', value: 'Así como es bueno tener solo los servicios autosustentables, que los equipos lo sean también es lo ideal.' },
-          { kind: 'contrast', bad: 'Equipo de no más de dos pizzas grandes.', good: 'Como lo voy a llamar: el equipo de no más de una holla mediana de pozole. Estamos en México, hay gastronomía. Más o menos 8 personas.' },
+          { kind: 'contrast', bad: 'Equipos inmensos con 10 especialistas de cada cosa.', good: 'Un equipo que puedas alimentar con una olla mediana de pozole (8 personas aprox).' },
           { kind: 'list', items: [
             'La comunicación dentro del equipo es rápida.',
             'Nadie espera a que otra persona dependa de la respuesta de alguien más.',
-            'Es un equipo multidisciplinario que puede rascarse su propia espalda.',
+            'Debe ser un equipo multidisciplinario que puede rascarse su propia espalda.',
           ] },
         ],
       },
@@ -318,7 +320,7 @@ export const SECTIONS: Section[] = [
         title: 'Eficiencia vs. flexibilidad',
         ferris: 'cuddlyferris',
         tilt: -1,
-        bubble: 'Si los cangrejos cortan los cables de AWS, ¿qué despliega tu app?',
+        bubble: 'Si una manada de ferris cortaramos los cables de AWS, ¿qué despliega tu app?',
         blocks: [
           { kind: 'text', value: 'Con un equipo pequeño y comunicándose bien, la eficiencia hay que cuidarla: no siempre conviene.' },
           { kind: 'contrast', bad: 'Una GitHub Action que despliega en Kubernetes hosteado en AWS en cada commit. ¡Estás atado!', good: 'Un script en bash que levanta una máquina virtual en cualquier servidor con VMware. Configuras la máquina y eres flexible.' },
@@ -375,7 +377,6 @@ export const SECTIONS: Section[] = [
       {
         id: 'paredes-lisas',
         title: 'Paredes lisas',
-        kicker: 'Y cierre',
         ferris: 'flat-happy',
         tilt: 1,
         blocks: [
@@ -386,6 +387,102 @@ export const SECTIONS: Section[] = [
             'Adaptar la arquitectura junto con la organización.',
           ] },
           { kind: 'highlight', label: 'Adaptación', value: 'Eventualmente hará que sea la competencia la que se adapte a ti.' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Datos y eventos',
+    slides: [
+      {
+        id: 'arquitectura-informacion',
+        title: 'Arquitectura de la información',
+        kicker: 'Escoge bien dónde vive cada cosa',
+        ferris: 'flat-orig',
+        tilt: 1,
+        blocks: [
+          { kind: 'text', value: 'Escoger una buena base de datos es parte del diseño. No todo tiene que caber con calzador en una base SQL.' },
+          { kind: 'list', items: [
+            'Si guardas conexiones entre hechos, quizá una base orientada a grafos sea mejor opción.',
+            'El suceso de cada hecho, en una base SQL de hechos históricos.',
+            'El contenido multimedia, en una base para blobs.',
+          ] },
+          { kind: 'highlight', label: 'Conclusión', value: 'Nuestro trabajo también es modelar la información, no solo el código.' },
+        ],
+      },
+      {
+        id: 'tipos-evento',
+        title: 'Tres clases de eventos',
+        kicker: 'Mensajes y eventos',
+        ferris: 'flat-gesture',
+        tilt: -1,
+        blocks: [
+          { kind: 'text', value: 'Hay que conocer los eventos y saber cuál de estos tres estás mandando.' },
+          { kind: 'list', items: [
+            'Evento de notificación: un fire and forget, se manda y no esperas nada.',
+            'Evento de transferencia de estados: replican entidades o sus partes para que otros hagan su trabajo.',
+            'Fuente de eventos: eventos grabados que describen el cambio.',
+          ] },
+        ],
+      },
+      {
+        id: 'registro-eventos',
+        title: 'El registro de eventos',
+        ferris: 'cuddlyferris',
+        tilt: 1,
+        bubble: 'Fire and forget… pero con memoria.',
+        blocks: [
+          { kind: 'highlight', label: 'Ventaja', value: 'Tener un registro te da la capacidad de ver lo que ha ocurrido y revisarlo desde varios puntos.' },
+          { kind: 'text', value: 'Por eso se habla de CQRS: los eventos suelen encontrarse en la parte de los comandos.' },
+        ],
+      },
+      {
+        id: 'ids-de-la-app',
+        title: 'Las apps controlan sus identificadores',
+        kicker: 'Por ningún motivo los crees tú',
+        ferris: 'cuddlyferris',
+        tilt: -1,
+        bubble: 'Si el id lo inventas tú, ya empezaste mal.',
+        blocks: [
+          { kind: 'text', value: 'Nunca decidas crear identificadores fuera de la aplicación.' },
+          { kind: 'contrast', bad: 'Tú le das un id al cliente y ese id se liga a un catálogo.', good: 'La app genera el id y liga cliente ↔ catálogo por su cuenta.' },
+          { kind: 'note', value: 'El ejemplo del libro: un id generado a mano y atado a un catálogo no sirve de nada.' },
+        ],
+      },
+      {
+        id: 'urls',
+        title: 'Las URLs son grandiosas',
+        ferris: 'flat-happy',
+        tilt: 1,
+        bubble: 'Dos es un número ridículo. Aquí hay 0, 1 y muchos.',
+        blocks: [
+          { kind: 'text', value: 'Las URLs sirven para diferenciar mejor los servicios. Ejemplo: un catálogo nuevo en su propia base de datos.' },
+          { kind: 'steps', items: ['Los items nuevos van al catálogo "ab".', 'Los viejos se quedan donde estaban.', 'Y mañana, "abc" no necesita migración.'] },
+          { kind: 'highlight', label: 'La idea', value: 'Con una URL resuelves cosas que aún no existen: solo descifras la URL.' },
+        ],
+      },
+      {
+        id: 'pluralidad',
+        title: 'Abraza la pluralidad',
+        ferris: 'flat-gesture',
+        tilt: -1,
+        blocks: [
+          { kind: 'text', value: 'Un cliente no es una definición de persona: es una faceta de la misma.' },
+          { kind: 'list', items: [
+            'Para el área de ventas es una cosa.',
+            'Para redes sociales es otra.',
+            'Generalizar es Abraza la pluralidad, no enclaustrarla.',
+          ] },
+        ],
+      },
+      {
+        id: 'fuga-conceptos',
+        title: 'Evita fuga de conceptos',
+        ferris: 'flat-orig',
+        tilt: 1,
+        blocks: [
+          { kind: 'text', value: 'Se creó un price point que agrupaba el precio de varias canciones. Querías cambiar toda la lista, así que solo cambiabas el valor al que apuntaba.' },
+          { kind: 'note', value: 'El problema: todos quisieron aprovechar la idea y eso causó acoplamiento semántico.' },
         ],
       },
     ],

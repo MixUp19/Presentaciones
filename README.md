@@ -38,7 +38,7 @@ la slide de contenido o con una URL directa: `/#blue-green`.
 ```
 scripts/fetch-ferris.mjs   descarga los SVG de rustacean.net (+ fallback)
 scripts/smoke-test.mjs     24 pruebas en Chromium headless
-src/data/slides.ts         TODO el contenido: 27 slides tipadas
+src/data/slides.ts         TODO el contenido: 34 slides tipadas
 src/components/            SideNav, Ferris, Blocks
 src/styles/global.css      tema claro
 src/pages/index.astro      render de las slides + navegación
@@ -87,7 +87,7 @@ node scripts/smoke-test.mjs
 ```
 
 Cubren navegación por teclado, índice, deep-links, poses y burbuja de Ferris, y
-que **ninguna de las 27 slides desborde** en horizontal ni vertical, tanto en
+que **ninguna de las 34 slides desborde** en horizontal ni vertical, tanto en
 escritorio (1440×900) como en móvil (390×844).
 
 ## Créditos

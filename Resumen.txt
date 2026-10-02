@@ -41,3 +41,23 @@ El autor nos habla de encerrar cada modulo o funcionalidad del software de forma
 otro factor del que nos habla el autor es el contexto implicito en tu codigo, no es lo mismo una variable Item a otra llamada ItemIdWebPolicies, el primero te dejan patinando.
 
 También debes de dejar paredes lisas, listas para expandir, debes separar tus componentes
+
+nuevo:
+
+El libro en el subcapitulo Arquitectura de la información nos habla sobre la importancia de escoger una buena base de datos para la información, no debemos intentar meter todo con calzador en una base SQL, si debemos guardar conexiones entre hechos, quizás una bd orientada a grafos sea mejor opción, y el suceso de cada hecho lo guardamos en una base sql de hechos historicos y si hay contenido multimedia en una base para blobs y así, nuestro trabajo también es modelar la información.
+
+En la sección de mensajes y eventos nos habla de la importancia de conocer los eventos y define 3
+Evento de notificación: un fire and forget que se manda sin esperar nada
+Eventos de transferencia de estados: eventos que replican entidades o sus partes para que otros hagan su trabajo.
+Fuente de eventos: eventos grabados que describen el cambio
+Menciona CQRS y que los eventos se suelen encontrar en la parte de los comandos.
+
+La ventaja de tener un registro de ecentos es la capcidad de ver lo que ha ocurrido y revisarlo desde varios puntos.
+
+En la sección de Las aplicaciones controlan sus identificadores habla de que por ningún motivo decidas crear identificadores fuera de la app, pone el ejemplo de una software de la creación de catalogos donde tú le das un id a un cliente y este id se liga a un catalogo, eso no sirve.
+
+En las sección sobre las urls nos habla de lo grandiosas que son y como se pueden usar para diferenciar mejor los servicios, poner el ejemplo de los catalogos, que ahora creamos una nueva bd y decidimos poner ab para los nuevos items, eso nos da dos posibilidades, nuevo, viejo y ya, pero dos es un numero ridiculo en computación aquí hay 0, 1 y muchos, entonces explica que usando una url podemos resolver cosas que aún no existen descifrando la url.
+
+En la sección abraza la pluralidad sigue con la idea anterior de como podemos hacer para generalizar, y nos pone la idea de un cliente, que no lo debemos tratar como una definición de una persona si no una faceta de la misma, ya que un cliente es para distintas áreas, distintas cosas.
+
+En la sección Evita fuga de conceptos nos habla de como se creó un price point que agrupaba el precio de varias canciones y ahora si querías cambiar toda la lista solo cambiabas el valor al que apuntaba el price point, esto ocasionó que todos quisieran aprovechar esa idea  creando acoplamiento semantico y esas cosas

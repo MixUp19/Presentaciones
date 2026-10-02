@@ -76,12 +76,15 @@ check('índice marca la slide activa', current === 1);
 const tilt = await page.getAttribute('[data-ferris]', 'data-tilt');
 check('Ferris inclina el cuerpo', tilt === '-1', `data-tilt=${tilt}`);
 
-// --- La burbuja aparece en una slide que la declara
+// --- La burbuja aparece y muestra exactamente lo que declara la slide.
+// No se comprueba contra una palabra fija: si se edita el texto de la burbuja,
+// la prueba debe seguir comparando el DOM con el dato, no con un literal.
+const expectedBubble = await page.getAttribute('[data-slide][data-active="true"]', 'data-ferris-bubble');
 const bubbleText = await page.textContent('.ferris__bubble').catch(() => null);
 check(
   'burbuja de Ferris aparece',
-  !!bubbleText && bubbleText.includes('feedback'),
-  bubbleText?.slice(0, 42)
+  !!expectedBubble && bubbleText?.trim() === expectedBubble.trim(),
+  `${bubbleText?.slice(0, 42)} vs ${expectedBubble?.slice(0, 42)}`
 );
 
 // --- Y desaparece al pasar a una slide sin burbuja
