@@ -430,7 +430,7 @@ export const SECTIONS: Section[] = [
         title: 'El registro de eventos',
         ferris: 'cuddlyferris',
         tilt: 1,
-        bubble: 'Fire and forget… pero con memoria.',
+        bubble: 'Fire and forget… Pero recuerda cuando disparaste.',
         blocks: [
           { kind: 'highlight', label: 'Ventaja', value: 'Tener un registro te da la capacidad de ver lo que ha ocurrido y revisarlo desde varios puntos.' },
           { kind: 'text', value: 'Por eso se habla de CQRS: los eventos suelen encontrarse en la parte de los comandos.' },
